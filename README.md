@@ -4,30 +4,24 @@
 
 wait-for-it command allows us to wait for database to set up before using FlyWay to migrate.
 
-## Usage
+### Usage
 
 conf/flyway.conf file:
-```ini
-flyway.url=jdbc:mysql://localhost:3306/some_db
-flyway.user=some_user
-flyway.password=another_secure_password
-```
+`flyway.url=jdbc:mysql://localhost:3306/some_db`
+`flyway.user=some_user`
+`flyway.password=another_secure_password`
 
-### Command
-
+#### Command
 Command using conf/flyway.conf file:
-```bash
-docker run -v $(pwd)/flyway/conf:/flyway/conf -v $(pwd)/sql:/flyway/sql jimmyoak/flyway:4.0.3 flyway migrate 
-```
+`docker run -v $(pwd)/flyway/conf:/flyway/conf -v $(pwd)/sql:/flyway/sql jimmyoak/flyway:4.0.3 flyway migrate `
 
 Command with arguments:
-```bash
-docker run -v $(pwd)/sql:/flyway/sql jimmyoak/flyway:4.0.3 flyway -url=jdbc:mysql://localhost:3306/some_db -user=some_user -password=another_secure_password migrate
-```
+`docker run -v $(pwd)/sql:/flyway/sql jimmyoak/flyway:4.0.3 flyway -url=jdbc:mysql://localhost:3306/some_db -user=some_user -password=another_secure_password migrate`
 
-### Docker compose
+#### Docker compose
 
 Here flyway will wait for mysql to set up before executing migration.
+
 ```yml
 version: '2'
 services:
