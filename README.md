@@ -13,10 +13,10 @@ conf/flyway.conf file:
 
 #### Command
 Command using conf/flyway.conf file:
-`docker run -v $(pwd)/flyway/conf:/flyway/conf -v $(pwd)/sql:/flyway/sql jimmyoak/flyway:4.0.3 flyway migrate `
+`docker run -v $(pwd)/flyway/conf:/flyway/conf -v $(pwd)/sql:/flyway/sql arojunior/flyway:5.2.4 flyway migrate `
 
 Command with arguments:
-`docker run -v $(pwd)/sql:/flyway/sql jimmyoak/flyway:4.0.3 flyway -url=jdbc:mysql://localhost:3306/some_db -user=some_user -password=another_secure_password migrate`
+`docker run -v $(pwd)/sql:/flyway/sql arojunior/flyway:5.2.4 flyway -url=jdbc:mysql://localhost:3306/mydb -user=user -password=password migrate`
 
 #### Docker compose
 
@@ -30,12 +30,12 @@ services:
     ports:
       - '3306:3306'
     environment:
-      MYSQL_ROOT_PASSWORD: 'secure_password'
-      MYSQL_DATABASE: some_db
-      MYSQL_USER: some_user
-      MYSQL_PASSWORD: 'another_secure_password'
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
   flyway:
-    image: jimmyoak/flyway:4.0.3
+    image: arojunior/flyway:5.2.4
     command: "wait-for-it --timeout=30 --strict mysql:3306 -- flyway migrate"
     volumes:
       - './flyway/conf:/flyway/conf'
@@ -45,4 +45,5 @@ services:
 
 ### Credits
 - [Boxfuse](https://boxfuse.com/) (FlyWay)
-- [Giles Hall (vishnubob)](https://github.com/vishnubob) (wait-for-it command)
+- [Giles Hall (vishnubob)](https://github.com/vishnubob/wait-for-it) (wait-for-it command)
+- [jimmyoak](https://github.com/jimmyoak/flyway) (forked)
